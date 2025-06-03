@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Card> player_hand = new ArrayList<>();
+    private boolean hitStand;
 
     public void addCard(Card e) {
         player_hand.add(e);
@@ -17,5 +18,9 @@ public class Player {
             sum += player_hand.get(i).getNum();
         }
         return sum;
+    }
+
+    public boolean getMove() {
+        return hitStand;
     }
 }
