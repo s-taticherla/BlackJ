@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Player {
     private ArrayList<Card> player_hand = new ArrayList<>();
 
-    public void add(Card e) {
+    public void addCard(Card e) {
         player_hand.add(e);
     }
 
@@ -19,4 +19,3 @@ public class Player {
         return sum;
     }
 }
-
