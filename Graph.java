@@ -5,9 +5,8 @@ import java.awt.event.*;
 public class Graph extends JFrame {
 	private int xCoord = 0;
 	private int yCoord = 0;
-	private int upX = 1650;
+	private int upX = 100;
 	private int upY = 750;
-	private int store = 0;
 	
 	public Graph() {
 		this.setTitle("BLACKJACK");
@@ -21,7 +20,6 @@ public class Graph extends JFrame {
 	public void updateCoordinates(int i, int j) {
 		this.xCoord = i;
 		this.yCoord = j;
-		
 	}
 	
 	public void paint(Graphics g) {
@@ -48,8 +46,7 @@ public class Graph extends JFrame {
 	public static void main(String[] args) {
         new Graph();
     }
-	public void test(Graphics g, int x, int y) {
-//		g.fillOval(50, 50, 50, 50);
+	public void drawCard(Graphics g, int x, int y, String suit, String numb, boolean isRed) {
 		paint(g);
 		int cont;
 		if (x>=20 && x <= 100) {
@@ -67,13 +64,23 @@ public class Graph extends JFrame {
 			cont = 2;
 		}
 		if (cont == 0) {
-			System.out.println("HI");
-			g.setColor(Color.black);
+			System.out.println(cont+" HI");
+			g.setColor(Color.BLACK);
 			g.drawRect(this.upX, this.upY, 150, 220);
+			if (!isRed) {
+				g.setColor(Color.black);
+			}
+			else {
+				g.setColor(Color.RED);
+			}
 			g.setFont(new Font("Consolas", Font.PLAIN, 36));
-			g.drawString("J♣", this.upX + 5, this.upY + 35);
-			g.drawString("♣J", this.upX + 105, this.upY + 205);
-			this.upX-=80;
+			g.drawString(numb+suit, this.upX + 5, this.upY + 35);
+			g.drawString(suit+numb, this.upX + 105, this.upY + 205);
+			this.upX+=80;
 		}
     }
+	
+//	public void drawCard(Graphics g, String suit, String numb, boolean isRed) {
+//		
+//	}
 }
