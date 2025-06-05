@@ -4,18 +4,19 @@ public class Game {
 
     public static void main(String[] args) {
         Deck deck = new Deck();
-        Card ranCard = deck.randCard();
-        Player p1 = new Player();
-        Player computer = new Player();
-        p1.addCard(ranCard);
-        ranCard = deck.randCard();
-        p1.addCard(ranCard);
-        ranCard = deck.randCard();
-        computer.addCard(ranCard);
-        ranCard = deck.randCard();
-        computer.addCard(ranCard);
+        Card ranCard = null;
+        Player player = new Player(deck);
+        Player computer = new Player(deck);
         while (player_won == false && computer_won == false) {
-            
+            if(player.getMove() == true) {
+                ranCard = deck.randCard();
+                player.addCard(ranCard);
+            }
+            if(computer.autoGetMove(computer.getSum(), player.getSum())) {
+                ranCard = deck.randCard();
+                computer.addCard(ranCard);
+            }
+
         }
     }
 }
