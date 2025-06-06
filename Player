@@ -22,6 +22,10 @@ public class Player {
     public Card access(int i) {
         return player_hand.get(i);
     }
+    
+    public int size() {
+    	return player_hand.size();
+    }
 
     public int sum() {
         int sum = 0;
