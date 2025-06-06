@@ -9,7 +9,7 @@ public class Player {
     public Player(Deck deck, int t) {
     	this.type = t;
         this.deck = deck;
-        for(int i = 0; i <= 2; i++) {
+        for(int i = 0; i < 2; i++) {
             Card ranCard = this.deck.randCard();
             player_hand.add(ranCard);
         }
