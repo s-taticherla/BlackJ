@@ -47,9 +47,12 @@ public class Player {
         return hitStand;
     }
 
-    public boolean autoGetMove(int player_Sum, int my_Sum) {
+    public boolean autoGetMove(int player_Sum, int my_Sum, boolean otherPlayerStand) {
         if(player_Sum > my_Sum) {
             return true;
+        }
+        if (my_Sum > player_Sum&&!otherPlayerStand) {
+        	return false;
         }
         if(my_Sum < 16) {
             return true;
