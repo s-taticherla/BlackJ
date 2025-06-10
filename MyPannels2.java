@@ -24,14 +24,25 @@ public class MyPannels2 extends JPanel{
 	    	this.gra.drawCard(g, this.gra.getX(), this.gra.getY(), this.play);
 	    }
 	    else {	
-	    	if (this.play.sum()<21){
-	    		while(this.comp.sum()< this.play.sum()) {
-	    			this.gra.drawCard(g, this.gra.getX(), this.gra.getY());
-	    		}
+	    	if (this.play.sum()>21){   		
+	    		lose(g);
+	    	}
+	    	else {
+	    		this.gra.drawCard(g);
+	    		this.gra.paint(g);
+	    		this.gra.first(g);
 	    	}
 	    	
 	    }
 	    
+	}
+	
+	public void lose(Graphics g) {
+		g.setColor(Color.white);
+		g.setFont(new Font("Consolas", Font.PLAIN, 160));
+		g.drawString("Bust! You Lose", 50, 560);
+		this.gra.paint(g);
+		this.gra.first(g);
 	}
 	
 }
@@ -39,14 +50,28 @@ public class MyPannels2 extends JPanel{
 class ML2 extends MouseAdapter {
     private MyPannels2 mp;
     private Graph2 parent;
+    public boolean hitPressed = false;
+    public boolean standPressed = false;
 
     public ML2(MyPannels2 f, Graph2 pa) {
         this.mp = f;
         this.parent = pa;
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        int x = e.getX() - 25;
+        int y = e.getY() - 25;
+        
+        // Detect hit or stand and update state
+        if (x >= 20 && x <= 100 && y >= 80 && y <= 160) {
+            hitPressed = true;
+            standPressed = false;
+        } else if (x >= 20 && x <= 100 && y >= 180 && y <= 260) {
+            standPressed = true;
+            hitPressed = false;
+        }
         parent.updateCoordinates(e.getX() - 25, e.getY() - 25);
         mp.repaint();
     }
