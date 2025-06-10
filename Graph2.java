@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Graph2 extends JFrame {
 
@@ -14,6 +17,7 @@ public class Graph2 extends JFrame {
 	private Player computer;
 	private boolean contin = true;
 	private boolean first = true;
+	private MyPannels2 mp;
 	
 	public Graph2(Deck deck, Player player, Player computer) {
 		this.deck = deck;
@@ -24,7 +28,7 @@ public class Graph2 extends JFrame {
 		this.setSize(2000, 1700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		MyPannels2 mp = new MyPannels2(this, this.player, this.computer);
+		mp = new MyPannels2(this, this.player, this.computer);
 		this.add(mp);
 		this.setVisible(true);
 	}
@@ -74,22 +78,7 @@ public class Graph2 extends JFrame {
 		if (!this.first) {
 			this.first(g);
 		}
-		int cont;
-		if (x>=20 && x <= 100) {
-			if (y>=80 && y <= 160) {
-				cont = 0;
-			}
-			else if (y>= 180 && y<=260) {
-				cont = 1;
-			}
-			else {
-				cont = 2;
-			}	
-		}
-		else {
-			cont = 2;
-		}
-		if (cont == 0 && a.hitStand) {
+		if (mp.a.hitPressed && a.hitStand) {
 			if (this.contin) {
 				Card c = this.deck.randCard();
 				a.addCard(c);
@@ -120,9 +109,10 @@ public class Graph2 extends JFrame {
 			}
 			if (a.sum()>21) {
 				a.hitStand = false;
+				mp.lose(g);
 			}
 		}
-		else if (cont == 1) {
+		else if (mp.a.standPressed) {
 			a.hitStand = false;
 		}
     }
@@ -151,7 +141,9 @@ public class Graph2 extends JFrame {
 		return (suit.equals("♥")||suit.equals("♦️"));
 	}
 	
-	private void first(Graphics g) {
+	public void first(Graphics g) {
+		this.downX = 50;
+		this.upX = 120;
 		for (int i = 0; i < this.player.size(); i++) {
 			Card c = this.player.access(i);
 			boolean isRed = compute(c.getSymbol());
@@ -175,10 +167,10 @@ public class Graph2 extends JFrame {
 			
 			this.downX+=160;
 		}
-		g.setColor(Color.WHITE);
-		g.fillRect(this.upX, this.upY, 150, 220);
-		this.upX+=160;
-		for (int i = 1; i < this.computer.size(); i++) {
+//		g.setColor(Color.WHITE);
+//		g.fillRect(this.upX, this.upY, 150, 220);
+//		this.upX+=160;
+		for (int i = 0; i < this.computer.size(); i++) {
 			Card c = this.computer.access(i);
 			boolean isRed = compute(c.getSymbol());
 			String numb = compute(c.getNum());
@@ -203,37 +195,45 @@ public class Graph2 extends JFrame {
 		}
 	}
 	
-	public void drawCard(Graphics g, int x, int y) {
+	public void drawCard(Graphics g) {
+		this.contin = true;
 		paint(g);
 		if (this.contin) {
-			Card car = this.deck.randCard();
-			this.computer.addCard(car);
-			boolean isRed = compute(car.getSymbol());
-			String numb = compute(car.getNum());
-			String suit = car.getSymbol();
-			g.setColor(Color.WHITE);
-			g.fillRect(this.upX, this.upY, 150, 220);
-			if (!isRed) {
-				g.setColor(Color.black);
+			while (this.computer.autoGetMove(this.player.sum(), this.computer.sum(), this.player.hitStand)) {
+				Card car = this.deck.randCard();
+				this.computer.addCard(car);
+				System.out.println();
+				boolean isRed = compute(car.getSymbol());
+				String numb = compute(car.getNum());
+				String suit = car.getSymbol();
+				g.setColor(Color.WHITE);
+				g.fillRect(this.upX, this.upY, 150, 220);
+				if (!isRed) {
+					g.setColor(Color.black);
+				}
+				else {
+					g.setColor(Color.RED);
+				}
+				g.setFont(new Font("Consolas", Font.PLAIN, 36));
+				g.drawString(numb+suit, this.upX + 5, this.upY + 35);
+				if (!(numb.equals("10"))){
+					g.drawString(suit+numb, this.upX + 105, this.upY + 205);
+				} else {
+					g.drawString(suit+numb, this.upX + 85, this.upY + 205);
+				}
+				this.upX+=160;
+				this.contin = !this.contin;
+				if (this.computer.sum()>21) {
+					this.computer.hitStand = false;
+				}
+				
 			}
-			else {
-				g.setColor(Color.RED);
-			}
-			g.setFont(new Font("Consolas", Font.PLAIN, 36));
-			g.drawString(numb+suit, this.upX + 5, this.upY + 35);
-			if (!(numb.equals("10"))){
-				g.drawString(suit+numb, this.upX + 105, this.upY + 205);
-			} else {
-				g.drawString(suit+numb, this.upX + 85, this.upY + 205);
-			}
-			
-			this.upX+=160;
-			this.contin = !this.contin;
 		}
 		else {
 			this.contin = !this.contin;
 		}
-		
+			
 	}
-
 }
+	
+
