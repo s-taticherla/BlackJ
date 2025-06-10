@@ -64,3 +64,20 @@ public class Player {
     	return this.type;
     }
 }
+public int getAceNum() {
+        if(getSum() < 10) {
+            return 1;
+        }else {
+            return 11;
+        }
+    }
+
+    public boolean hasAce() {
+        for (Card a : player_hand) {
+            if(a.getNum() == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+}
