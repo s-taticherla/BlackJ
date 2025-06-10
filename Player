@@ -63,7 +63,7 @@ public class Player {
     public int getType() {
     	return this.type;
     }
-}
+
 public int getAceNum() {
         if(getSum() < 10) {
             return 1;
