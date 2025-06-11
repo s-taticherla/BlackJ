@@ -235,5 +235,3 @@ public class Graph2 extends JFrame {
 			
 	}
 }
-	
-
