@@ -29,17 +29,20 @@ public class Player {
 
     public int sum() {
         int sum = 0;
+        int ace = 0;
         for(int i = 0; i < player_hand.size(); i++) {
             if(player_hand.get(i).getNum() == 1) {
                 sum += 11;
+                ace++;
             }else if(player_hand.get(i).getNum() > 10) {
                 sum += 10;
             }else{
                 sum += player_hand.get(i).getNum();
             }   
         }
-        if(hasAce() && sum > 21) {
+        while(ace>0 && sum > 21) {
         	sum -= 10;
+        	ace--;
         }
         return sum;
     }
