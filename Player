@@ -31,12 +31,17 @@ public class Player {
         int sum = 0;
         for(int i = 0; i < player_hand.size(); i++) {
             if(player_hand.get(i).getNum() == 1) {
-                sum += getAceNum();
+                sum += 11;
             }else if(player_hand.get(i).getNum() > 10) {
                 sum += 10;
             }else{
                 sum += player_hand.get(i).getNum();
             }
+            
+            if(hasAce() && sum > 21) {
+            	sum -= 10;
+            }
+            
         }
         return sum;
     }
@@ -61,12 +66,13 @@ public class Player {
     public int getType() {
     	return this.type;
     }
-
-    public int getAceNum() {
-        if(sum() < 10) {
-            return 1;
-        }else {
-            return 11;
-        }
+    
+    public boolean hasAce() {
+    	for(Card e: player_hand) {
+    		if(e.getNum() == 1) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 }
