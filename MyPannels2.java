@@ -23,9 +23,9 @@ public class MyPannels2 extends JPanel{
 	    if (this.play.hitStand) {
 	    	this.gra.drawCard(g, this.gra.getX(), this.gra.getY(), this.play);
 	    }
-	    else {	
+	    else {
 	    	if (this.play.sum()>21){   		
-	    		lose(g);
+	    		lose(g, true);
 	    	}
 	    	else {
 	    		this.gra.drawCard(g);
@@ -37,12 +37,21 @@ public class MyPannels2 extends JPanel{
 	    
 	}
 	
-	public void lose(Graphics g) {
-		g.setColor(Color.white);
-		g.setFont(new Font("Consolas", Font.PLAIN, 160));
-		g.drawString("Bust! You Lose", 50, 560);
-		this.gra.paint(g);
-		this.gra.first(g);
+	public void lose(Graphics g, boolean b) {
+		System.out.println("p:"+this.play.sum()+" c:"+this.comp.sum());
+		if (b) {
+			g.setColor(Color.white);
+			g.setFont(new Font("Consolas", Font.PLAIN, 160));
+			g.drawString("You lose (っ °Д °;)っ", 50, 560);
+			this.gra.paint(g);
+			this.gra.first(g);
+		} else {
+			g.setColor(Color.white);
+			g.setFont(new Font("Consolas", Font.PLAIN, 120));
+			g.drawString("The computer loses", 80, 550);
+			this.gra.paint(g);
+		}
+		
 	}
 	
 }
