@@ -109,7 +109,7 @@ public class Graph2 extends JFrame {
 			}
 			if (a.sum()>21) {
 				a.hitStand = false;
-				mp.lose(g);
+				mp.lose(g, true);
 			}
 		}
 		else if (mp.a.standPressed) {
@@ -202,7 +202,6 @@ public class Graph2 extends JFrame {
 			while (this.computer.autoGetMove(this.player.sum(), this.computer.sum(), this.player.hitStand)) {
 				Card car = this.deck.randCard();
 				this.computer.addCard(car);
-				System.out.println();
 				boolean isRed = compute(car.getSymbol());
 				String numb = compute(car.getNum());
 				String suit = car.getSymbol();
@@ -223,11 +222,18 @@ public class Graph2 extends JFrame {
 				}
 				this.upX+=160;
 				this.contin = !this.contin;
-				if (this.computer.sum()>21) {
-					this.computer.hitStand = false;
-				}
-				
+			
 			}
+			if (this.computer.sum()>21) {
+				this.computer.hitStand = false;
+				mp.lose(g, false);
+			}
+			else {
+				GameResult gr = new GameResult(this.computer.sum(), this.player.sum());
+				mp.lose(g, gr.getResult());
+			}
+			
+		
 		}
 		else {
 			this.contin = !this.contin;
@@ -235,3 +241,5 @@ public class Graph2 extends JFrame {
 			
 	}
 }
+	
+
