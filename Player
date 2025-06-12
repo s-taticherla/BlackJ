@@ -36,12 +36,10 @@ public class Player {
                 sum += 10;
             }else{
                 sum += player_hand.get(i).getNum();
-            }
-            
-            if(hasAce() && sum > 21) {
-            	sum -= 10;
-            }
-            
+            }   
+        }
+        if(hasAce() && sum > 21) {
+        	sum -= 10;
         }
         return sum;
     }
