@@ -1,11 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class Graph2 extends JFrame {
-
+	
 	private int xCoord = 0;
 	private int yCoord = 0;
 	private int downX = 50;
@@ -24,8 +22,9 @@ public class Graph2 extends JFrame {
 		this.player = player;
 		this.computer = computer;
 		this.setTitle("BLACKJACK2");
+		int[] a = this.screenSize();
 		this.setBackground(new Color(53,101,77));
-		this.setSize(2000, 1700);
+		this.setSize(a[0], a[1]);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		mp = new MyPannels2(this, this.player, this.computer);
@@ -41,15 +40,14 @@ public class Graph2 extends JFrame {
 	public void paint(Graphics g) {
 
 		g.setColor(Color.BLUE);
-		g.fillOval(20, 80, 80, 80);
+		g.fillRect(20, 80, 80, 80);
 		g.setColor(Color.RED);
-		g.fillOval(20, 180, 80, 80);
+		g.fillRect(20, 180, 80, 80);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Consolas", Font.PLAIN, 36));
 		g.drawString("HIT", 30, 130);
 		g.setFont(new Font("Consolas", Font.PLAIN, 24));
 		g.drawString("STAND", 30, 225);
-
 		if (this.first) {
 			this.first = false;
 			this.first(g);
@@ -239,6 +237,19 @@ public class Graph2 extends JFrame {
 			this.contin = !this.contin;
 		}
 			
+	}
+	private int[] screenSize() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		 
+        // Get the screen size as a Dimension object
+        Dimension screenSize = toolkit.getScreenSize();
+ 
+        // Extract width and height
+        int width = screenSize.width;
+        int height = screenSize.height;
+        int[] a = {width, height};
+        return a;
+
 	}
 }
 	
