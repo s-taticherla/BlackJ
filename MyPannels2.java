@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("serial")
 public class MyPannels2 extends JPanel{
-	Graph2 gra;
+	private Graph2 gra;
+	private Player play;
+	private Player comp;
 	ML2 a;
-	Player play;
-	Player comp;
 	
 	public MyPannels2(Graph2 gr, Player p, Player c) {
 		this.play = p;
@@ -42,13 +43,13 @@ public class MyPannels2 extends JPanel{
 		if (b) {
 			g.setColor(Color.white);
 			g.setFont(new Font("Consolas", Font.PLAIN, 160));
-			g.drawString("You lose (っ °Д °;)っ", 50, 560);
+			g.drawString("You lose ( °Д °;)", 50, 560);
 			this.gra.paint(g);
 			this.gra.first(g);
 		} else {
 			g.setColor(Color.white);
 			g.setFont(new Font("Consolas", Font.PLAIN, 120));
-			g.drawString("The computer loses", 80, 550);
+			g.drawString("The computer loses (°u°)　", 80, 550);
 			this.gra.paint(g);
 		}
 		
